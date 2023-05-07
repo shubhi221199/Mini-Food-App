@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FoodWeb</title>
+    <style>
+      body {
+        background-color:#fc8019;
+      }
+      #signin {
+        width: 20%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: center;
+        box-shadow: rgba(0, 0, 0, 0.95) 0px 5px 15px;
+        border-radius: 10px;
+        margin: auto;
+        margin-top: 80px;
+        text-align: center;
+        background-color: white;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+      }
+      h1 {
+        margin-bottom: 5px;
+      }
+      input {
+        height: 30px;
+        border: 3px solid rgb(220, 226, 43);
+        padding-left: 10px;
+      }
+      #submit {
+        width: 50%;
+        margin: auto;
+        background-color: #fc8019;
+        color: white;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      #submit:hover {
+        background-color:#eda81d;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="signin">
+      <h1 id="heading">SignIn</h1>
+      <form>
+        <input type="email" id="email" />
+        <input type="password" id="password" />
+        <input type="submit" value="Submit" id="submit"/>
+      </form>
+    </div>
+  </body>
+</html>
+<script type="module">
+  import navbar from "./utility.js";
+  document
+    .getElementById("email")
+    .setAttribute("placeholder", "Enter Your Email");
+  document
+    .getElementById("password")
+    .setAttribute("placeholder", "Enter Password");
+
+  document.querySelector("form").addEventListener("submit", data);
+  function data() {
+    event.preventDefault();
+
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+
+    if (!email) {
+      alert("Please fill Email");
+    }
+
+    if (!password) {
+      alert("Please fill Password");
+    }
+
+    var obj = { email: email, password: password };
+
+    var arr = JSON.parse(localStorage.getItem("account-data"));
+
+    var flag = false;
+    arr.map(function (ele) {
+      if (ele.email === obj.email && ele.password === obj.password) {
+        flag = true;
+        localStorage.setItem("username", "Hello " + ele.name);
+      }
+    });
+
+    if (flag) {
+      document.getElementById("heading").textContent = "Sign in Successful";
+      window.location.href = "index.html";
+    } else {
+      document.getElementById("heading").textContent = "Wrong Credentials";
+    }
+  }
+</script>
